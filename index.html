@@ -1,0 +1,1285 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thiệp Mời Kỷ Yếu Online — 8 Mẫu Thiết Kế & Tạo Link Trực Tiếp</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Dancing+Script:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pg:#f5eff7;--pn:#ffffff;--tx:#24162b;--mu:#6e5a78;--ln:#e5d8ec;--pl:#7c3aed;--pl2:#c026d3;--ok:#10b981;--warn:#f59e0b;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme=light]){
+    --pg:#130e18;--pn:#1e1626;--tx:#f5eef9;--mu:#b29ec0;--ln:#352844;--pl:#a855f7;--pl2:#ec4899
+  }
+}
+*{box-sizing:border-box}
+html{height:100%}
+body{margin:0;min-height:100%;background:var(--pg);color:var(--tx);font:14.5px/1.55 'Be Vietnam Pro',system-ui,sans-serif;overflow-x:hidden}
+.app{display:grid;grid-template-columns:minmax(360px,510px) 1fr;gap:22px;max-width:1180px;margin:0 auto;padding:16px}
+.ed{background:var(--pn);border:1px solid var(--ln);border-radius:20px;padding:18px;max-height:calc(100vh - 32px);overflow:auto;box-shadow:0 10px 30px #0000000d}
+.pv{display:flex;flex-direction:column;justify-content: flex-start;align-items:center;position:sticky;top:16px;height:fit-content}
+.tabs{display:none}
+h2{font:700 19px 'Be Vietnam Pro';margin:0 0 4px;display:flex;align-items:center;gap:8px}
+h3{font:700 13.5px 'Be Vietnam Pro';margin:18px 0 8px;padding-top:14px;border-top:1px solid var(--ln);color:var(--pl);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;justify-content:space-between}
+.sub{color:var(--mu);font-size:12.5px;margin:0 0 12px}
+label{display:block;font-size:12.5px;font-weight:600;color:var(--mu);margin:9px 0 4px}
+input,textarea,select{width:100%;padding:9px 11px;border:1px solid var(--ln);border-radius:10px;background:var(--pg);color:var(--tx);font:inherit;transition:border-color .2s,box-shadow .2s}
+textarea{resize:vertical;min-height:58px}
+input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--pl);outline-offset:1px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{border:0;border-radius:11px;padding:10px 14px;font:600 13.5px 'Be Vietnam Pro';background:linear-gradient(135deg,var(--pl),var(--pl2));color:#fff;cursor:pointer;transition:transform .15s,opacity .2s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn:hover{opacity:.94}
+.btn:active{transform:scale(.98)}
+.btn.g{background:transparent;color:var(--pl);border:1.5px solid var(--pl)}
+.btn.sm{padding:6px 10px;font-size:12px;border-radius:8px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+/* Template Selector Grid */
+.tpls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tp{border:2px solid var(--ln);border-radius:12px;padding:0;background:var(--pn);color:var(--tx);cursor:pointer;overflow:hidden;font:600 11px 'Be Vietnam Pro';transition:transform .2s,border-color .2s;text-align:center}
+.tp:hover{transform:translateY(-2px)}
+.tp i{display:flex;align-items:center;justify-content:center;height:46px;font-style:normal;font-size:18px;position:relative}
+.tp em{position:absolute;bottom:2px;right:4px;font-style:normal;font-size:9px;background:#0007;color:#fff;padding:1px 5px;border-radius:6px}
+.tp span{display:block;padding:5px 3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tp.on{border-color:var(--pl);box-shadow:0 0 0 2px var(--pl)}
+
+/* Thumbnails */
+.th{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.th div{position:relative;width:58px;height:58px;border-radius:10px;overflow:hidden;border:1.5px solid var(--ln);background:var(--pg)}
+.th img{width:100%;height:100%;object-fit:cover}
+.th button{position:absolute;top:2px;right:2px;border:0;background:#000b;color:#fff;border-radius:50%;width:20px;height:20px;cursor:pointer;line-height:1;font-size:13px;padding:0}
+
+/* API & Storage Status Box */
+.api-box{background:var(--pg);border:1px solid var(--ln);border-radius:14px;padding:12px;margin-top:8px}
+.api-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 0;font-size:12.5px}
+.api-row+.api-row{border-top:1px dashed var(--ln)}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700}
+.badge.ok{background:#10b98122;color:#059669;border:1px solid #10b98155}
+.badge.warn{background:#f59e0b22;color:#d97706;border:1px solid #f59e0b55}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block;animation:pulseDot 1.6s infinite}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.api-cfg{margin-top:8px;padding-top:8px;border-top:1px solid var(--ln);display:none}
+.api-cfg.open{display:block}
+
+/* Direct Share Link Box */
+.share-box{background:linear-gradient(135deg,#7c3aed12,#c026d312);border:1.5px solid var(--pl);border-radius:14px;padding:13px;margin-top:14px}
+.share-box h4{margin:0 0 6px;font-size:13.5px;color:var(--pl);display:flex;align-items:center;gap:6px}
+.url-bar{display:flex;gap:6px;margin-top:6px}
+.url-bar input{font-size:12px;font-family:monospace;background:var(--pn)}
+.qr-wrap{display:none;margin-top:10px;padding:10px;background:#fff;border-radius:12px;text-align:center;color:#222}
+.qr-wrap.open{display:block}
+
+/* Toast & Modal */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#231528;color:#fff;padding:10px 18px;border-radius:12px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .25s;z-index:120;max-width:92vw;text-align:center;box-shadow:0 8px 24px #0006}
+.toast.on{opacity:1}
+.modal-bg{position:fixed;inset:0;background:#0009;backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:110;padding:16px}
+.modal-bg.open{display:flex}
+.modal-card{background:var(--pn);color:var(--tx);border:1px solid var(--ln);border-radius:18px;max-width:420px;width:100%;padding:20px;box-shadow:0 20px 50px #0006}
+.modal-card h4{margin:0 0 8px;font-size:16px}
+
+/* Guest View Mode */
+.back-ed{display:none;position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;z-index:95;background:#1a1122cc;backdrop-filter:blur(8px);color:#fff;border:1px solid #ffffff33;border-radius:99px;padding:7px 14px;font:600 12.5px 'Be Vietnam Pro';cursor:pointer;box-shadow:0 4px 14px #0005}
+body[data-m=g][data-preview="1"] .back-ed{display:inline-flex;align-items:center;gap:6px}
+body[data-m=g] .ed,body[data-m=g] .tabs{display:none}
+body[data-m=g] .app{display:block;padding:0;max-width:none}
+body[data-m=g] .pv{position:static}
+body[data-m=g]{background:#0d0914}
+body[data-m=g] #phone{width:100%;max-width:450px;margin:0 auto;height:100vh;height:100dvh;border:0;border-radius:0;box-shadow:0 0 50px #000}
+
+@media(max-width:860px){
+  .app{grid-template-columns:1fr;padding:10px}
+  .tabs{display:flex;gap:6px;position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--pg);padding:6px 0}
+  .tabs button{flex:1}
+  .ed{max-height:none}
+  .pv{position:static}
+  body[data-m=e][data-v=p] .ed{display:none}
+  body[data-m=e][data-v=e] .pv{display:none}
+  body[data-m=e] #phone{height:calc(100vh - 96px);border-width:4px;border-radius:24px;width:100%;max-width:430px}
+}
+
+/* ====== KHUNG ĐIỆN THOẠI & THIỆP ====== */
+#phone{width:min(100%,410px);height:min(800px,calc(100vh - 32px));border:8px solid #1d1623;border-radius:36px;overflow:hidden;background:#000;position:relative;box-shadow:0 18px 45px #0004}
+#scroll{height:100%;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;position:relative}
+#card{position:relative;min-height:100%;background:var(--bg);color:var(--ink);font-family:'Be Vietnam Pro',sans-serif;padding:24px 16px 96px;overflow:hidden;transition:background .4s ease,color .3s ease}
+#card>*{position:relative;z-index:2}
+
+/* Envelope Opening Overlay */
+.env-ov{position:absolute;inset:0;z-index:30;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;transition:opacity .65s ease,transform .65s cubic-bezier(.4,0,.2,1)}
+.env-ov.hide{opacity:0;transform:scale(1.12) translateY(-30px);pointer-events:none}
+.env-card{background:var(--fm);color:var(--ink);border:2px solid var(--ac);border-radius:22px;padding:24px 20px;max-width:310px;width:100%;box-shadow:0 16px 40px #0004;animation:floatSlow 3s ease-in-out infinite;position:relative}
+.env-seal{width:58px;height:58px;border-radius:50%;background:var(--ac);color:var(--on);display:grid;place-items:center;font-size:26px;margin:0 auto 12px;box-shadow:0 6px 16px #0003;cursor:pointer;animation: sealPulse 1.8s infinite}
+@keyframes sealPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
+
+/* Ambient Floating Decorations & Particles */
+#card .dc{position:absolute;z-index:1;opacity:.78;pointer-events:none;transform:translateY(var(--py,0px)) rotate(var(--rot,0deg));animation:floatDec 4.2s ease-in-out infinite alternate}
+#card .dc:nth-child(odd){animation-duration:5.5s;animation-direction:alternate-reverse}
+@keyframes floatDec{0%{margin-top:0px;margin-left:0px}100%{margin-top:-14px;margin-left:6px}}
+@keyframes floatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+@keyframes sway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@keyframes filmMarquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
+@keyframes meteor{0%{transform:translate(120px,-80px) rotate(-35deg);opacity:0}15%{opacity:1}60%,100%{transform:translate(-260px,220px) rotate(-35deg);opacity:0}}
+@keyframes petalFall{0%{transform:translateY(-20px) rotate(0deg);opacity:0}20%{opacity:.85}100%{transform:translateY(680px) rotate(320deg);opacity:0}}
+@keyframes neonGlow{0%,100%{box-shadow:0 0 10px var(--ac),inset 0 0 8px var(--ac)}50%{box-shadow:0 0 22px #19e6ff,0 0 32px var(--ac)}}
+@keyframes stampPop{0%{transform:scale(2.2) rotate(-18deg);opacity:0}100%{transform:scale(1) rotate(-8deg);opacity:1}}
+@keyframes waveSlide{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* Typography & Shared Utilities */
+.sc{font-family:'Dancing Script','Brush Script MT',cursive;font-weight:700}
+.pl{opacity:.5;border-bottom:1px dashed currentColor}
+.ph{background:repeating-linear-gradient(45deg,#00000010 0 8px,#00000018 8px 16px);align-items:center;justify-content:center;font-size:28px;color:#0007;display:flex}
+.chip{display:inline-block;background:var(--ac);color:var(--on);padding:6px 18px;font-weight:700;font-size:13px;border-radius:99px;letter-spacing:.4px;margin:14px 0 6px;box-shadow:0 4px 12px #0002}
+
+/* ====== 8 MẪU LAYOUT KHÁC NHAU ====== */
+
+/* 1. Mẫu PINK: Scrapbook Polaroid & Washi Tape */
+.tpl-pink .gh{position:absolute!important;right:4px;top:8px;width:88px;z-index:2;animation:floatSlow 3.2s ease-in-out infinite}
+.tpl-pink .ti{font:800 32px/1.08 'Baloo 2',sans-serif;color:var(--ac);text-shadow:2px 2px 0 var(--sh);margin:4px 0;max-width:74%}
+.tpl-pink .scrap-mid{display:grid;grid-template-columns:1.15fr .95fr;gap:12px;align-items:center;margin-top:12px}
+.tpl-pink .pol{background:#fff;padding:10px 10px 8px;box-shadow:0 8px 20px #00000026;transform:rotate(-4deg);color:#4a2b43;position:relative;border-radius:4px;animation:sway 5s ease-in-out infinite}
+.tpl-pink .pol:before{content:"";position:absolute;top:-10px;left:32%;width:68px;height:20px;background:#ff85c0aa;transform:rotate(-6deg);box-shadow:0 2px 4px #0001}
+.tpl-pink .pol img,.tpl-pink .pol .ph{width:100%;aspect-ratio:4/5;object-fit:cover}
+.tpl-pink .pol b{display:block;text-align:center;font-size:21px;margin-top:5px}
+.tpl-pink .note-dt{background:#fff9fc;border:2px dashed #f092c2;border-radius:16px;padding:12px 8px;text-align:center;box-shadow:0 6px 14px #0001;transform:rotate(2deg)}
+.tpl-pink .note-dt .dd{font-size:50px;line-height:1;color:var(--ac);display:block;margin:2px 0}
+.tpl-pink .qt-scrap{background:#ffffffc9;border-left:4px solid var(--ac);padding:10px 12px;border-radius:0 14px 14px 0;margin:14px 4px;font-size:17px;text-align:center;box-shadow:0 4px 12px #0001}
+.film{margin:16px -24px 8px;transform:rotate(-3.5deg);background:var(--film);padding:14px 0;position:relative;overflow:hidden;box-shadow:0 8px 20px #0004}
+.film:before,.film:after{content:"";position:absolute;left:0;right:0;height:7px;background:repeating-linear-gradient(90deg,#fff 0 8px,transparent 8px 16px)}
+.film:before{top:3px}.film:after{bottom:3px}
+.film-track{display:flex;gap:8px;width:max-content;padding:0 8px;animation:filmMarquee 18s linear infinite}
+.film-track:hover{animation-play-state:paused}
+.film-track img,.film-track .ph{width:104px;height:86px;object-fit:cover;border-radius:3px;flex-shrink:0}
+
+/* 2. Mẫu SEA: Tạp Chí Biển Xanh (Ocean Editorial Magazine) */
+.tpl-sea .mag-head{border-top:2.5px solid var(--ac);border-bottom:2.5px solid var(--ac);padding:6px 0;text-align:center;margin-bottom:10px}
+.tpl-sea .mag-issue{display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;opacity:.8}
+.tpl-sea .ti{font:800 34px/1.02 'Playfair Display',serif;color:var(--ac);text-transform:uppercase;letter-spacing:1px;margin:6px 0 2px}
+.tpl-sea .mag-cover{position:relative;margin-top:10px;border-radius:20px;overflow:hidden;border:4px solid #fff;box-shadow:0 12px 28px #0a3c5f33}
+.tpl-sea .mag-cover img,.tpl-sea .mag-cover .ph{width:100%;aspect-ratio:4/4.6;object-fit:cover;display:flex}
+.tpl-sea .mag-overlay{position:absolute;inset:auto 0 0 0;background:linear-gradient(transparent,#072f49e6);color:#fff;padding:28px 14px 12px;display:flex;justify-content:space-between;align-items:flex-end}
+.tpl-sea .mag-badge{background:#ffffffeb;color:var(--ac);border-radius:14px;padding:8px 12px;text-align:center;min-width:86px;box-shadow:0 4px 12px #0003}
+.tpl-sea .mag-badge b{font-size:28px;line-height:1;display:block}
+.tpl-sea .wave-box{margin:12px -16px;overflow:hidden;line-height:0}
+.tpl-sea .wave-svg{width:200%;height:28px;animation:waveSlide 7s linear infinite}
+.tpl-sea .bento{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.tpl-sea .bento>*:first-child{grid-column:span 2;aspect-ratio:16/9}
+.tpl-sea .bento img,.tpl-sea .bento .ph{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;border:3px solid #fff;box-shadow:0 5px 14px #0002}
+
+/* 3. Mẫu SUN: Vé Phim Thanh Xuân (Cinema Ticket & Spinning Vinyl) */
+.tpl-sun .ticket{background:var(--fm);border:2.5px solid var(--ac);border-radius:18px;padding:16px 14px;position:relative;box-shadow:0 10px 24px #6b421022;margin-bottom:14px}
+.tpl-sun .ticket:before,.tpl-sun .ticket:after{content:"";position:absolute;top:52%;width:24px;height:24px;background:var(--bg);border:2.5px solid var(--ac);border-radius:50%;transform:translateY(-50%)}
+.tpl-sun .ticket:before{left:-14px;clip-path:polygon(50% 0,100% 0,100% 100%,50% 100%)}
+.tpl-sun .ticket:after{right:-14px;clip-path:polygon(0 0,50% 0,50% 100%,0 100%)}
+.tpl-sun .t-top{display:flex;justify-content:space-between;font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--ac);border-bottom:1.5px dashed var(--ac);padding-bottom:6px}
+.tpl-sun .ti{font:800 30px/1.1 'Baloo 2',sans-serif;color:var(--ac);text-align:center;margin:8px 0}
+.tpl-sun .vinyl-stage{position:relative;width:78%;margin:14px auto 10px;padding-right:34px}
+.tpl-sun .vinyl-disc{position:absolute;right:0;top:50%;width:130px;height:130px;margin-top:-65px;border-radius:50%;background:radial-gradient(circle,#f8d98a 0 14%,var(--ac) 15% 24%,#1f160a 25% 55%,#3a2a14 57% 59%,#1f160a 60% 100%);box-shadow:0 6px 16px #0004;animation:spinSlow 5s linear infinite}
+.tpl-sun .vinyl-cover{position:relative;z-index:2;background:#fff;padding:7px;border-radius:10px;border:2px solid var(--ac);box-shadow:0 8px 20px #0003}
+.tpl-sun .vinyl-cover img,.tpl-sun .vinyl-cover .ph{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px}
+.tpl-sun .stub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;border-top:2px dashed var(--ac);margin-top:12px;padding-top:10px;text-align:center;font-size:12px}
+.tpl-sun .stub-grid b{display:block;font-size:17px;color:var(--ac)}
+.tpl-sun .bulb-qt{border:2px dotted var(--ac);background:#fffdf5;border-radius:12px;padding:10px;text-align:center;margin:12px 0;box-shadow:0 0 14px #f59e0b33}
+
+/* 4. Mẫu NIGHT: Đêm Sao Ngân Hà (Galaxy Glassmorphism & Orbit) */
+.tpl-night .meteor{position:absolute;width:90px;height:2px;background:linear-gradient(90deg,#fff,transparent);pointer-events:none;z-index:1;animation:meteor 4.5s linear infinite}
+.tpl-night .m2{top:18%;left:70%;animation-delay:2.1s}
+.tpl-night .m1{top:6%;left:55%}
+.tpl-night .glass{background:#ffffff14;backdrop-filter:blur(10px);border:1px solid #ffffff38;border-radius:20px;padding:16px;box-shadow:0 10px 30px #0005;margin-bottom:12px}
+.tpl-night .ti{font:800 31px/1.1 'Baloo 2',sans-serif;color:#f3e8ff;text-shadow:0 0 16px #c084fc;text-align:center;margin:4px 0}
+.tpl-night .orbit-wrap{position:relative;width:210px;height:210px;margin:14px auto;display:grid;place-items:center}
+.tpl-night .orbit-ring{position:absolute;inset:0;border:2px dashed #d8b4fe88;border-radius:50%;animation:spinSlow 14s linear infinite}
+.tpl-night .orbit-ring:before{content:"✦";position:absolute;top:-11px;left:50%;color:#fde047;font-size:18px;text-shadow:0 0 8px #fde047}
+.tpl-night .orbit-img{width:174px;height:174px;border-radius:50%;overflow:hidden;border:3px solid #e9d5ff;box-shadow:0 0 25px #a855f788}
+.tpl-night .orbit-img img,.tpl-night .orbit-img .ph{width:100%;height:100%;object-fit:cover}
+.tpl-night .star-dt{display:flex;justify-content:space-around;align-items:center;text-align:center;padding:10px;border-radius:14px;background:#0d061c88;border:1px solid #d8b4fe44}
+.tpl-night .star-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.tpl-night .star-grid img,.tpl-night .star-grid .ph{width:100%;aspect-ratio:1;object-fit:cover;border-radius:18px;border:2px solid #d8b4fe88;box-shadow:0 0 16px #a855f744}
+
+/* 5. Mẫu MINT: Lá Xanh Tinh Khôi (Botanical Arch & Monthly Calendar) */
+.tpl-mint .arch-card{background:#ffffffd9;border:1.5px solid #a7f3d0;border-radius:160px 160px 24px 24px;padding:24px 16px 18px;text-align:center;box-shadow:0 12px 30px #1f5a4514;position:relative}
+.tpl-mint .leaf-corner{position:absolute;font-size:28px;animation:sway 3.6s ease-in-out infinite}
+.tpl-mint .lc-l{top:18px;left:14px}
+.tpl-mint .lc-r{top:18px;right:14px;animation-delay:1.2s}
+.tpl-mint .ti{font:700 28px/1.15 'Playfair Display',serif;color:var(--ac);margin:6px 0}
+.tpl-mint .arch-frame{width:82%;margin:10px auto;border-radius:120px 120px 16px 16px;overflow:hidden;border:4px solid #fff;box-shadow:0 8px 22px #1f5a4522}
+.tpl-mint .arch-frame img,.tpl-mint .arch-frame .ph{width:100%;aspect-ratio:4/4.8;object-fit:cover}
+.tpl-mint .cal-box{background:#fff;border-radius:16px;padding:12px;margin-top:12px;border:1px solid #bbf7d0;box-shadow:0 4px 14px #0000000a}
+.tpl-mint .cal-hd{font-weight:700;color:var(--ac);font-size:14px;margin-bottom:6px;text-align:center}
+.tpl-mint .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;font-size:11px;text-align:center}
+.tpl-mint .cal-grid span{padding:4px 0;border-radius:50%}
+.tpl-mint .cal-grid .wk{font-weight:700;color:#64748b;font-size:10px}
+.tpl-mint .cal-grid .hit{background:var(--ac);color:#fff;font-weight:800;box-shadow:0 0 0 3px #2f8f6b44;animation:sealPulse 1.6s infinite}
+
+/* 6. Mẫu RED: Dấu Ấn Áo Dài (Indochine Heritage & Falling Petals) */
+.tpl-red .indo-frame{border:3px double var(--ac);border-radius:14px;padding:16px 12px;background:#fff9f0cc;position:relative;box-shadow:inset 0 0 0 4px #fff9f0,0 10px 26px #7a14241a}
+.tpl-red .seal{display:inline-block;background:var(--ac);color:#fff6dd;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:1.5px;border:1px solid #ffd0a8}
+.tpl-red .ti{font:800 30px/1.15 'Playfair Display',serif;color:var(--ac);text-align:center;margin:8px 0}
+.tpl-red .medallion{width:80%;margin:10px auto;border-radius:26px;padding:6px;background:linear-gradient(135deg,#b3202f,#d97706);box-shadow:0 10px 24px #7a142433}
+.tpl-red .medallion img,.tpl-red .medallion .ph{width:100%;aspect-ratio:4/4.6;object-fit:cover;border-radius:20px;border:2px solid #fff6dd}
+.tpl-red .plaque{display:flex;justify-content:center;align-items:center;gap:14px;margin:12px 0;padding:10px;background:#fff2df;border:1.5px solid var(--ac);border-radius:10px}
+.tpl-red .plaque-d{font-size:44px;font-weight:800;color:var(--ac);line-height:1;font-family:'Playfair Display',serif}
+.tpl-red .petal{position:absolute;top:-20px;z-index:3;pointer-events:none;font-size:16px;animation:petalFall 6.5s linear infinite}
+
+/* 7. Mẫu RETRO: Nhật Báo Kỷ Yếu (1998 Vintage Newspaper Front Page) */
+.tpl-retro .paper{background:#f5ead6;border:2px solid #4a3320;padding:14px 12px;color:#3b2614;box-shadow:4px 6px 0 #4a332044}
+.tpl-retro .mast{border-top:3px double #4a3320;border-bottom:3px double #4a3320;padding:6px 0;text-align:center;margin-bottom:8px}
+.tpl-retro .mast-sub{display:flex;justify-content:space-between;font-size:10px;font-weight:700;text-transform:uppercase;border-bottom:1px solid #4a3320;padding-bottom:3px;margin-bottom:4px}
+.tpl-retro .ti{font:800 29px/1.05 'Playfair Display',serif;color:#3b2614;text-transform:uppercase;margin:4px 0}
+.tpl-retro .news-cols{display:grid;grid-template-columns:1.2fr .9fr;gap:10px;align-items:start;margin-top:10px;border-bottom:1.5px solid #4a3320;padding-bottom:12px}
+.tpl-retro .news-pic{background:#fff;padding:6px 6px 18px;border:1px solid #4a3320;box-shadow:2px 3px 0 #4a3320;position:relative;transform:rotate(-1.5deg)}
+.tpl-retro .news-pic img,.tpl-retro .news-pic .ph{width:100%;aspect-ratio:4/4.8;object-fit:cover;filter:sepia(.22) contrast(1.04)}
+.tpl-retro .stamp-box{border:2.5px solid #991b1b;color:#991b1b;padding:8px 6px;text-align:center;font-weight:800;transform:rotate(-5deg);animation:stampPop .7s cubic-bezier(.2,.9,.3,1) both;background:#fff8ea;margin-top:6px}
+.tpl-retro .contact-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+.tpl-retro .c-frame{background:#23170d;padding:6px 6px 4px;color:#f5ead6;font-family:monospace;font-size:10px;border-radius:4px}
+.tpl-retro .c-frame img,.tpl-retro .c-frame .ph{width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:3px}
+
+/* 8. Mẫu NEON: Locket Y2K Cyber (OS Window & Photobooth 4-Cut) */
+.tpl-neon .os-win{background:#190a2ecc;border:2px solid #ff4fd8;border-radius:16px;overflow:hidden;box-shadow:0 0 20px #ff4fd855;margin-bottom:14px}
+.tpl-neon .os-bar{background:linear-gradient(90deg,#ff4fd8,#7c3aed,#19e6ff);color:#090314;padding:6px 10px;font:700 11px 'Space Grotesk',monospace;display:flex;justify-content:space-between;align-items:center}
+.tpl-neon .os-btns span{display:inline-block;width:14px;height:14px;line-height:13px;text-align:center;background:#fff;border:1px solid #000;border-radius:3px;margin-left:3px;font-size:10px}
+.tpl-neon .os-body{padding:14px 12px;text-align:center}
+.tpl-neon .ti{font:800 31px/1.05 'Baloo 2',sans-serif;color:#fff;text-shadow:2px 2px 0 #ff4fd8,-2px -2px 0 #19e6ff;margin:4px 0 10px}
+.tpl-neon .locket-box{width:86%;margin:8px auto;aspect-ratio:1;border-radius:34px;padding:5px;background:linear-gradient(135deg,#ff4fd8,#19e6ff,#fde047);animation:neonGlow 2.4s infinite;position:relative}
+.tpl-neon .locket-box img,.tpl-neon .locket-box .ph{width:100%;height:100%;object-fit:cover;border-radius:29px;background:#11081f}
+.tpl-neon .locket-pill{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:#000000b8;backdrop-filter:blur(6px);color:#fff;border:1px solid #ffffff44;border-radius:99px;padding:4px 14px;font-size:12px;font-weight:700;white-space:nowrap}
+.tpl-neon .led-dt{background:#090414;border:1.5px solid #19e6ff;border-radius:12px;padding:10px;margin-top:12px;font-family:'Space Grotesk',monospace;color:#19e6ff;display:flex;justify-content:space-around;align-items:center;box-shadow:inset 0 0 12px #19e6ff33}
+.tpl-neon .booth-strip{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#fff;padding:10px;border-radius:14px;margin-top:14px;box-shadow:0 0 24px #ff4fd866}
+.tpl-neon .booth-strip img,.tpl-neon .booth-strip .ph{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:2px solid #13071f}
+
+/* Shared Footer Sections inside Card (Location, RSVP, Call, Vinyl) */
+.ad{text-align:center;margin-top:14px;background:#ffffff1c;backdrop-filter:blur(4px);border:1px solid currentColor;border-radius:16px;padding:10px 12px}
+.ad p{margin:6px 0;font-weight:600}
+.lk{display:inline-block;color:var(--on);background:var(--ac);font-weight:700;font-size:12.5px;border-radius:20px;padding:6px 16px;text-decoration:none;margin-top:4px;box-shadow:0 4px 10px #0002}
+.rs{margin-top:16px;background:#ffffff22;backdrop-filter:blur(6px);border:1.5px solid var(--ac);border-radius:18px;padding:12px}
+.rs input[type=text]{background:var(--fm);border:1.5px solid var(--ac);border-radius:10px;margin:5px 0;color:#2b1a29;font-size:13.5px}
+.rs .ck{background:var(--fm);border:1.5px solid var(--ac);border-radius:10px;padding:6px 10px;color:#2b1a29;font-size:12.5px;margin-top:4px}
+.rs .ck label{display:flex;gap:7px;margin:4px 0;color:inherit;align-items:center;font-weight:500}
+.rs .ck input{width:auto}
+.rs .btn{width:100%;margin-top:10px;background:var(--ac);color:var(--on);border-radius:99px;padding:11px}
+.cl{display:flex;align-items:center;gap:10px;justify-content:center;margin-top:18px;font-weight:700;color:inherit;text-decoration:none;background:#ffffff24;padding:9px 16px;border-radius:99px;border:1px solid currentColor}
+.cl i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#22c55e;font-style:normal;color:#fff}
+.vw{position:sticky;bottom:12px;height:0;z-index:25}
+.vinyl{position:absolute;left:0;bottom:0;width:44px;height:44px;border-radius:50%;border:2px solid #fff;background:radial-gradient(circle,#ddd 0 14%,#18181b 15% 58%,#52525b 60%,#18181b 64%);cursor:pointer;padding:0;box-shadow:0 4px 14px #0006}
+.vinyl.on{animation:spinSlow 3s linear infinite}
+
+/* Scroll Reveal Animations per Template */
+.rv{--x:0px;--y:44px;--s:1;--r:0deg;--rx:0deg;--b:0px}
+.anim .rv{transition:opacity .85s ease,transform .85s cubic-bezier(.2,.85,.25,1),filter .85s ease}
+.anim .rv:not(.in){opacity:0;transform:perspective(700px) translate(var(--x),var(--y)) scale(var(--s)) rotate(var(--r)) rotateX(var(--rx));filter:blur(var(--b))}
+.an-zoom .rv{--y:16px;--s:.72}
+.an-blur .rv{--y:24px;--b:14px;--s:1.08}
+.an-rot .rv{--y:32px;--r:-8deg;--s:.86}
+.an-pop .rv{--y:10px;--s:.45}.an-pop.anim .rv{transition-timing-function:ease,cubic-bezier(.34,1.56,.64,1),ease}
+.an-flip .rv{--y:20px;--rx:55deg;--s:.9}
+.an-cyber .rv{--y:0px;--s:.78;--b:8px}
+@media(prefers-reduced-motion:reduce){
+  .anim .rv:not(.in){opacity:1;transform:none;filter:none}
+  .anim .rv,.env-ov{transition:none}
+  .vinyl.on,#card .dc,.film-track,.tpl-sun .vinyl-disc,.tpl-night .orbit-ring{animation:none}
+}
+</style>
+</head>
+<body data-m="e" data-v="e">
+<button class="back-ed" id="btnBackEd" onclick="exitGuestPreview()">✎ Quay lại chỉnh sửa</button>
+
+<div class="app">
+ <div class="tabs">
+  <button class="btn" onclick="tab('e')">Chỉnh sửa</button>
+  <button class="btn g" onclick="tab('p')">Xem thiệp</button>
+ </div>
+
+ <section class="ed">
+  <h2>✨ Tạo Thiệp Mời Kỷ Yếu Online</h2>
+  <p class="sub">Chọn từ 8 mẫu thiết kế có bố cục &amp; hiệu ứng riêng biệt, điền thông tin, thêm ảnh và nhạc để tạo link dẫn trực tiếp tới thiệp mời.</p>
+
+  <label>Chọn mẫu thiết kế (8 bố cục &amp; hiệu ứng chuyển cảnh khác nhau)</label>
+  <div class="tpls" id="tpls"></div>
+  <div class="btns">
+   <button class="btn g sm" onclick="replay()">Chạy thử hiệu ứng</button>
+   <button class="btn g sm" onclick="openEnvelopeDemo()">Mở phong bì thiệp</button>
+   <button class="btn g sm" onclick="fillSample()">Điền dữ liệu mẫu</button>
+  </div>
+
+  <h3>📝 Thông tin thiệp mời</h3>
+  <label>Tên người mời / Tập thể lớp</label>
+  <input data-k="name" placeholder="VD: Minh Quân - 12A3">
+  <label>Tiêu đề thiệp</label>
+  <input data-k="title" placeholder="Tham Dự Chụp Hình Kỷ Yếu">
+  <label>Lời mời mở đầu</label>
+  <input data-k="invite" placeholder="Thân Mời Bạn">
+  <div class="row">
+   <div><label>Ngày chụp</label><input type="date" data-k="date"></div>
+   <div><label>Giờ</label><input data-k="time" placeholder="08:30 AM"></div>
+  </div>
+  <label>Câu trích dẫn / Lời nhắn kỷ niệm</label>
+  <textarea data-k="quote" placeholder="Thanh xuân như một cơn mưa rào, cùng lưu lại khoảnh khắc đẹp nhất nhé!"></textarea>
+  <label>Địa điểm tổ chức</label>
+  <input data-k="addr" placeholder="Trường THPT Mê Linh - Sân bóng trung tâm">
+  <label>Số điện thoại (nhận lời chúc SMS &amp; nút gọi nhanh)</label>
+  <input data-k="phone" inputmode="tel" placeholder="0988xxxxxx">
+
+  <h3>📸 Hình ảnh kỷ yếu</h3>
+  <label>Ảnh chính (Khung trung tâm của mẫu thiệp)</label>
+  <input type="file" accept="image/*" id="fMain">
+  <label>Ảnh thư viện kỷ niệm (Chọn nhiều ảnh, tối đa 8 ảnh)</label>
+  <input type="file" accept="image/*" multiple id="fStrip">
+  <div class="th" id="th"></div>
+  <div class="btns">
+   <button class="btn g sm" onclick="rm('photo')">Xóa ảnh chính</button>
+   <button class="btn g sm" onclick=" loadSamplePhotos()">Dùng bộ ảnh mẫu</button>
+  </div>
+
+  <h3>🎵 Nhạc nền thiệp</h3>
+  <label>Tải file nhạc (mp3, m4a, wav, tối đa 20MB)</label>
+  <input type="file" accept="audio/*" id="fMusic">
+  <label>Hoặc dán link nhạc trực tiếp (.mp3)</label>
+  <input data-k="music" placeholder="https://.../bai-hat.mp3">
+  <div class="btns">
+   <button class="btn g sm" onclick="rm('music')">Xóa nhạc</button>
+   <button class="btn g sm" onclick="useSampleMusic()">Bật giai điệu kỷ yếu mẫu</button>
+  </div>
+
+  <div class="btns" style="margin-top:20px">
+   <button class="btn" id="bsave" onclick="pub()">Lưu và xuất bản</button>
+   <button class="btn g" onclick="openGuestPreview()">Xem trực tiếp như khách mời</button>
+   <button class="btn g" onclick="reset()">Làm lại từ đầu</button>
+  </div>
+  <p class="sub" id="hint" style="margin-top:8px"></p>
+
+  <!-- Khung xuất link trực tiếp tới thiệp mời -->
+  <div class="share-box" id="shareBox">
+   <h4>🔗 Link Dẫn Trực Tiếp Tới Thiệp Mời</h4>
+   <p class="sub" style="margin:0 0 6px">Khi gửi link này, bạn bè mở ra sẽ vào thẳng giao diện Thiệp Mời (có phong bì mở thiệp, đầy đủ ảnh &amp; hiệu ứng, ẩn hoàn toàn khung chỉnh sửa):</p>
+   <div class="url-bar">
+    <input id="shareUrl" readonly value="" aria-label="Link thiệp mời trực tiếp">
+    <button class="btn sm" type="button" onclick="copyShareLink()">Sao chép link</button>
+   </div>
+   <div class="btns" style="margin-top:8px">
+    <button class="btn sm" type="button" onclick="openGuestPreview()">🚀 Mở thiệp mời ngay</button>
+    <button class="btn g sm" type="button" onclick="toggleQrBox()">📱 Mã QR thiệp</button>
+    <button class="btn g sm" type="button" onclick="downloadStandalone()">⬇️ Tải file HTML độc lập</button>
+   </div>
+   <div class="qr-wrap" id="qrWrap">
+    <div id="qrSvgBox"></div>
+    <small style="display:block;margin-top:4px;font-weight:600">Quét mã QR hoặc gửi link trực tiếp qua Zalo / Messenger</small>
+   </div>
+  </div>
+ </section>
+
+ <section class="pv">
+  <div id="phone">
+   <!-- Phong bì mở thiệp -->
+   <div class="env-ov hide" id="envOv">
+    <div class="env-card">
+     <div class="env-seal" onclick="closeEnvelope()" title="Chạm để mở thiệp">💌</div>
+     <div class="sc" style="font-size:22px;opacity:.85">Thư Mời Kỷ Yếu</div>
+     <h3 style="margin:6px 0 4px;border:0;padding:0;justify-content:center;font-size:18px;color:var(--ac)" id="envName">Minh Quân - 12A3</h3>
+     <p style="font-size:12.5px;margin:4px 0 14px;opacity:.8">Gửi tới bạn tấm thiệp lưu giữ thanh xuân</p>
+     <button class="btn" type="button" style="width:100%;background:var(--ac);color:var(--on);border-radius:99px" onclick="closeEnvelope()">✨ Chạm Để Mở Thiệp</button>
+    </div>
+   </div>
+   <div id="scroll">
+    <div id="card"></div>
+   </div>
+  </div>
+ </section>
+</div>
+
+<!-- Modal xác nhận làm lại từ đầu (thay thế confirm() bị chặn trong sandbox) -->
+<div class="modal-bg" id="resetModal">
+ <div class="modal-card">
+  <h4>Làm lại từ đầu?</h4>
+  <p class="sub" style="font-size:13.5px">Bạn có chắc muốn xóa toàn bộ thông tin, ảnh đang chỉnh sửa để làm lại từ đầu không?</p>
+  <div class="btns" style="justify-content:flex-end">
+   <button class="btn g" type="button" onclick="closeResetModal()">Hủy</button>
+   <button class="btn" type="button" onclick="confirmReset()">Đồng ý xóa</button>
+  </div>
+ </div>
+</div>
+
+<audio id="au" loop></audio>
+<div class="toast" id="toast"></div>
+<script id="kdata" type="application/json">{}</script>
+<script>
+const $=id=>document.getElementById(id);
+const W=['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
+const E=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// Tạo ảnh SVG mẫu sắc nét để thiệp luôn có ảnh đẹp ngay khi mở hoặc thử mẫu
+function makeSampleSvg(title,sub,c1,c2,icon){
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/></linearGradient></defs><rect width="400" height="500" fill="url(#g)"/><circle cx="320" cy="90" r="65" fill="#ffffff22"/><circle cx="70" cy="410" r="85" fill="#ffffff1c"/><rect x="28" y="28" width="344" height="444" rx="22" fill="none" stroke="#ffffff66" stroke-width="3" stroke-dasharray="8 6"/><text x="200" y="210" font-size="78" text-anchor="middle">${icon}</text><text x="200" y="285" font-family="sans-serif" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">${title}</text><text x="200" y="322" font-family="sans-serif" font-size="17" fill="#ffffffdd" text-anchor="middle">${sub}</text></svg>`;
+  return 'data:image/svg+xml;utf8,'+encodeURIComponent(svg);
+}
+const SAMPLE_MAIN=makeSampleSvg('NIÊN KHÓA 2026','Kỷ Yếu Thanh Xuân 12A3','#7c3aed','#ec4899','🎓');
+const SAMPLE_STRIP=[
+  makeSampleSvg('LỚP 12A3','Khoảnh Khắc Sân Trường','#2563eb','#06b6d4','📸'),
+  makeSampleSvg('THANH XUÂN','Nụ Cười Rạng Rỡ','#d97706','#f59e0b','🌻'),
+  makeSampleSvg('KỶ NIỆM','Chuyến Tàu Cuối Cấp','#059669','#34d399','🌿'),
+  makeSampleSvg('MÃI NHỚ','Hẹn Ngày Hội Ngộ','#9333ea','#f43f5e','✨')
+];
+
+// 8 Mẫu thiết kế với bố cục (layout), hiệu ứng (an) và trang trí riêng biệt
+const T=[
+  {id:'pink',n:'Ma Hồng Kẹo',badge:'Scrapbook',bg:'linear-gradient(165deg,#ffe3f1,#f6c6e4 55%,#fde6f2)',ink:'#6b2a55',ac:'#86346f',on:'#fff',sh:'#fff8',hd:'Baloo 2',fm:'#fff',film:'#1b1318',tilt:-4,gh:1,an:'up',dec:['🍭','🍦','💗','🍬','🎀','🌸']},
+  {id:'sea',n:'Tạp Chí Biển',badge:'Magazine',bg:'linear-gradient(170deg,#dff4ff,#a9dcf5 55%,#e6f7ff)',ink:'#0f4c75',ac:'#0e6ba8',on:'#fff',sh:'#fff9',hd:'Playfair Display',fm:'#fff',film:'#0c2233',tilt:2,an:'zoom',dec:['🌊','🐚','☀️','🐬','⛵','🫧']},
+  {id:'sun',n:'Vé Phim Vàng',badge:'Ticket',bg:'linear-gradient(165deg,#fff5cc,#f8d98a 55%,#ffefb8)',ink:'#5c3709',ac:'#b86b0d',on:'#fff',sh:'#fff9',hd:'Baloo 2',fm:'#fffaf0',film:'#33210a',tilt:-2,an:'slide',dec:['🎬','🌻','🎟️','☀️','🌼','📽️']},
+  {id:'night',n:'Đêm Ngân Hà',badge:'Galaxy',bg:'linear-gradient(170deg,#1a1033,#3b1d6e 55%,#140d2b)',ink:'#f3e8ff',ac:'#d8b4fe',on:'#1e1035',sh:'#0006',hd:'Baloo 2',fm:'#f3e8ff',film:'#0d0720',tilt:2,an:'blur',dec:['✨','🌙','⭐','🪐','💜','☄️']},
+  {id:'mint',n:'Lá Xanh Vòm',badge:'Lịch Tháng',bg:'linear-gradient(165deg,#eefcf4,#ccf2de 60%,#e9fbf0)',ink:'#164e3b',ac:'#207e5c',on:'#fff',sh:'#fff0',hd:'Playfair Display',fm:'#fff',film:'#13261f',tilt:0,an:'pop',dec:['🍃','🌿','🌱','🕊️','🍀']},
+  {id:'red',n:'Đỏ Áo Dài',badge:'Đông Dương',bg:'linear-gradient(165deg,#fff2e2,#ffd2a8 60%,#fff0de)',ink:'#731222',ac:'#b31e2e',on:'#fff7e0',sh:'#fff9',hd:'Playfair Display',fm:'#fff8ec',film:'#2b0a10',tilt:-2,an:'rot',dec:['🏮','🌸','🌺','🧧','🪭']},
+  {id:'retro',n:'Nhật Báo 1998',badge:'Newspaper',bg:'linear-gradient(165deg,#efe0c8,#d8be94)',ink:'#3d2817',ac:'#7a461d',on:'#fff4e0',sh:'#fff7',hd:'Playfair Display',fm:'#fff8ea',film:'#2a1d12',tilt:-2,an:'flip',dec:['📷','🎞️','☕','📎','🗞️']},
+  {id:'neon',n:'Locket Y2K',badge:'Cyber OS',bg:'linear-gradient(165deg,#120621,#2c0b4d 55%,#071b30)',ink:'#f5e9ff',ac:'#ff4fd8',on:'#120621',sh:'#19e6ff99',hd:'Baloo 2',fm:'#fff',film:'#000',tilt:2,an:'cyber',dec:['💫','⚡','💖','🎧','💿','👾']}
+];
+
+const POS=[[4,12],[87,22],[6,38],[89,48],[5,65],[85,75],[48,30],[74,88]];
+const D={
+  tpl:'pink',
+  name:'Minh Quân - Lớp 12A3',
+  title:'Tham Dự Chụp Hình Kỷ Yếu',
+  invite:'Thân Mời Bạn',
+  date:'2026-11-29',
+  time:'08:30 AM',
+  quote:'Thanh xuân giống như một cơn mưa rào, dù cho từng bị cảm lạnh vì tắm mưa thì chúng ta vẫn muốn được đắm mình trong cơn mưa ấy một lần nữa.',
+  addr:'Trường THPT Mê Linh - Sân chính & Khu nhà hiệu bộ',
+  phone:'0988686868',
+  photo:SAMPLE_MAIN,
+  strip:SAMPLE_STRIP.slice(),
+  music:'',
+  cloudId:''
+};
+
+let S;
+try{
+  const raw=JSON.parse($('kdata').textContent||'{}');
+  S=Object.assign({},D,raw);
+  if(!Array.isArray(S.strip))S.strip=SAMPLE_STRIP.slice();
+}catch(e){
+  S=Object.assign({},D,{strip:SAMPLE_STRIP.slice()});
+}
+
+let ED=false,AR=null,AS=null,io=null,audioCtx=null,synthTimer=null;
+
+function toast(m){
+  const t=$('toast');
+  t.textContent=m;
+  t.classList.add('on');
+  clearTimeout(toast.t);
+  toast.t=setTimeout(()=>t.classList.remove('on'),3600);
+}
+
+function tab(v){
+  document.body.dataset.v=v;
+  document.querySelectorAll('.tabs .btn').forEach((b,i)=>b.classList.toggle('g',(v==='e')!==(i===0)));
+}
+
+const P=(x,l)=>x?E(x):ED?`<span class="pl">${l}</span>`:'';
+
+// Tạo lịch tháng thật cho mẫu Mint (Lá Xanh Vòm)
+function buildMiniCalendar(dateStr){
+  const d=new Date(dateStr+'T00:00');
+  const ok=!isNaN(d);
+  const yr=ok?d.getFullYear():2026;
+  const mo=ok?d.getMonth():10;
+  const targetDay=ok?d.getDate():29;
+  const firstDay=(new Date(yr,mo,1).getDay()+6)%7; // Thứ 2 = 0
+  const daysInMonth=new Date(yr,mo+1,0).getDate();
+  const wk=['T2','T3','T4','T5','T6','T7','CN'].map(w=>`<span class="wk">${w}</span>`).join('');
+  let cells='';
+  for(let i=0;i<firstDay;i++)cells+=`<span></span>`;
+  for(let day=1;day<=daysInMonth;day++){
+    cells+=`<span class="${day===targetDay?'hit':''}">${day===targetDay?'💚'+day:day}</span>`;
+  }
+  return `<div class="cal-box rv"><div class="cal-hd">Tháng ${String(mo+1).padStart(2,'0')} / ${yr}</div><div class="cal-grid">${wk}${cells}</div></div>`;
+}
+
+// Render từng bố cục riêng biệt cho 8 mẫu
+function cardHTML(){
+  const t=T.find(x=>x.id===S.tpl)||T[0];
+  const d=new Date(S.date+'T00:00'),ok=!isNaN(d);
+  const dd=ok?String(d.getDate()).padStart(2,'0'):'--',mo=ok?String(d.getMonth()+1).padStart(2,'0'):'--',yr=ok?d.getFullYear():'2026',wd=ok?W[d.getDay()]:'Chủ Nhật';
+  const dc=POS.map((p,i)=>`<span class="dc" data-f="${(i%4+1)*.06}" style="left:${p[0]}%;top:${p[1]}%;font-size:${21+i%3*7}px;--rot:${i*23-40}deg">${t.dec[i%t.dec.length]}</span>`).join('');
+
+  const mainPhotoHtml=S.photo?`<img src="${E(S.photo)}" alt="Ảnh chính">`:`<div class="ph">📷</div>`;
+  const stripItems=S.strip.length?S.strip:(ED?SAMPLE_STRIP:[]);
+  const qText=S.quote?`“${E(S.quote)}”`:P('','Câu trích dẫn kỷ niệm');
+
+  // Phần Địa chỉ, Xác nhận tham dự, Nút gọi chung
+  const ad=S.addr||ED?`<div class="ad rv"><span class="chip">📍 Địa Điểm Tổ Chức</span><p>${P(S.addr,'Địa điểm')}</p>${S.addr?`<a class="lk" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(S.addr)}" target="_blank" rel="noopener">Mở Google Maps chỉ đường</a>`:''}</div>`:'';
+  const rs=S.phone||ED?`<div class="rs rv"><span class="chip">💌 XÁC NHẬN THAM DỰ</span><input type="text" id="wn" placeholder="Tên Của Bạn"><input type="text" id="ww" placeholder="Lời Chúc Gửi Tới ${E(S.name||'Bạn')}"><div class="ck"><label><input type="checkbox" name="rs" value="Mình nhất định sẽ tham gia"> Mình Nhất Định Sẽ Tham Gia 🎉</label><label><input type="checkbox" name="rs" value="Sorry mình bận mất rùi"> Sorry Mình Bận Mất Rùi 🥺</label></div><button class="btn" type="button" onclick="sendWish()">Gửi Lời Chúc</button></div>`:'';
+  const ph=(S.phone||'').replace(/[^\d+]/g,'');
+  const cl=ph?`<a class="cl rv" href="tel:${E(ph)}"><i>✆</i> Gọi Cho ${E(S.name||'Người Mời')} (${E(ph)})</a>`:'';
+  const vinylBtn=`<div class="vw"><button class="vinyl" type="button" aria-label="Bật tắt nhạc" onclick="toggleMusic()"></button></div>`;
+
+  let bodyLayout='';
+
+  if(t.id==='pink'){
+    // MẪU 1: SCRAPBOOK POLAROID & FILMSTRIP MARQUEE
+    const gh=`<svg class="gh" viewBox="0 0 100 110"><path d="M15 100V50C15 22 32 8 50 8s35 14 35 42v50l-12-9-11 9-12-9-11 9-12-9z" fill="#fff" stroke="#2a2a2a" stroke-width="3"/><rect x="26" y="40" width="21" height="13" rx="5"/><rect x="53" y="40" width="21" height="13" rx="5"/><path d="M47 45h6" stroke="#222" stroke-width="3"/><circle cx="27" cy="62" r="5" fill="#f6a5c8"/><circle cx="73" cy="62" r="5" fill="#f6a5c8"/><path d="M44 66q6 6 12 0" stroke="#222" stroke-width="3" fill="none"/></svg>`;
+    const doubled=stripItems.concat(stripItems);
+    const filmGal=doubled.length?`<div class="rv"><div class="film"><div class="film-track">${doubled.map(s=>`<img src="${E(s)}" alt="">`).join('')}</div></div></div>`:'';
+    bodyLayout=`${gh}
+      <div class="hero rv">
+        <div class="sc" style="font-size:24px">Thư Mời Kỷ Yếu</div>
+        <h1 class="ti">${P(S.title,'Tham Dự Chụp Hình Kỷ Yếu')}</h1>
+        <div class="sc" style="font-size:19px;opacity:.85">Sweet Scrapbook • Yearbook ${yr}</div>
+      </div>
+      <div class="scrap-mid rv">
+        <div class="pol">${mainPhotoHtml}<b class="sc">${P(S.name,'Tên bạn')}</b></div>
+        <div class="note-dt">
+          <span class="sc" style="font-size:20px">${P(S.invite,'Thân Mời')}</span>
+          <div style="font-size:12px;font-weight:700;margin-top:4px">THÁNG ${mo}</div>
+          <span class="dd sc">${dd}</span>
+          <u class="sc" style="font-size:18px">${wd}</u>
+          <div style="font-size:12.5px;margin-top:6px;font-weight:700">⏰ ${P(S.time,'Giờ')}</div>
+        </div>
+      </div>
+      <div class="qt-scrap sc rv">${qText}</div>
+      ${filmGal}`;
+  }
+  else if(t.id==='sea'){
+    // MẪU 2: TẠP CHÍ BIỂN XANH (OCEAN EDITORIAL MAGAZINE)
+    const wave=`<div class="wave-box"><svg class="wave-svg" viewBox="0 0 800 40" preserveAspectRatio="none"><path d="M0 20 Q 100 0 200 20 T 400 20 T 600 20 T 800 20 L 800 40 L 0 40 Z" fill="#0e6ba826"/></svg></div>`;
+    const bento=stripItems.length?`<div class="bento rv">${stripItems.map((s,i)=>`<img src="${E(s)}" alt="" class="rv" style="transition-delay:${i*.1}s">`).join('')}</div>`:'';
+    bodyLayout=`
+      <div class="mag-head rv">
+        <div class="mag-issue"><span>YEARBOOK EDITION</span><span>ISSUE NO.${mo}/${yr}</span></div>
+        <h1 class="ti">${P(S.title,'Tham Dự Chụp Hình Kỷ Yếu')}</h1>
+        <div class="sc" style="font-size:21px">${P(S.invite,'Thân Mời')} • ${P(S.name,'Tên bạn')}</div>
+      </div>
+      <div class="mag-cover rv">
+        ${mainPhotoHtml}
+        <div class="mag-overlay">
+          <div>
+            <div style="font-size:11px;letter-spacing:1px;opacity:.85">${wd.toUpperCase()}</div>
+            <div class="sc" style="font-size:25px">${P(S.name,'Tên bạn')}</div>
+            <div style="font-size:12.5px">⏰ ${P(S.time,'Giờ')}</div>
+          </div>
+          <div class="mag-badge">
+            <small style="font-size:10px;font-weight:700">THÁNG ${mo}</small>
+            <b>${dd}</b>
+            <small style="font-size:10px">${yr}</small>
+          </div>
+        </div>
+      </div>
+      ${wave}
+      <p class="qt sc rv" style="font-size:19px;text-align:center;margin:10px 6px">${qText}</p>
+      ${bento}`;
+  }
+  else if(t.id==='sun'){
+    // MẪU 3: VÉ PHIM THANH XUÂN (CINEMA TICKET & SPINNING VINYL)
+    const doubled=stripItems.concat(stripItems);
+    const filmGal=doubled.length?`<div class="rv"><div class="film"><div class="film-track">${doubled.map(s=>`<img src="${E(s)}" alt="">`).join('')}</div></div></div>`:'';
+    bodyLayout=`
+      <div class="ticket rv">
+        <div class="t-top"><span>🎟️ ADMIT ONE</span><span>GOLDEN YEARBOOK ${yr}</span></div>
+        <h1 class="ti">${P(S.title,'Tham Dự Chụp Hình Kỷ Yếu')}</h1>
+        <div style="text-align:center;font-weight:700;font-size:14px">${P(S.invite,'Thân Mời')} — <span class="sc" style="font-size:22px">${P(S.name,'Tên bạn')}</span></div>
+        <div class="vinyl-stage">
+          <div class="vinyl-disc"></div>
+          <div class="vinyl-cover">${mainPhotoHtml}</div>
+        </div>
+        <div class="stub-grid">
+          <div><span>THỨ</span><b>${wd}</b></div>
+          <div><span>NGÀY</span><b>${dd}/${mo}</b></div>
+          <div><span>KHUNG GIỜ</span><b>${P(S.time,'Giờ')}</b></div>
+        </div>
+      </div>
+      <div class="bulb-qt sc rv" style="font-size:18px">${qText}</div>
+      ${filmGal}`;
+  }
+  else if(t.id==='night'){
+    // MẪU 4: ĐÊM SAO NGÂN HÀ (GALAXY GLASSMORPHISM & ORBIT PORTAL)
+    const starGal=stripItems.length?`<div class="star-grid">${stripItems.map((s,i)=>`<img src="${E(s)}" alt="" class="rv" style="transition-delay:${i*.12}s">`).join('')}</div>`:'';
+    bodyLayout=`
+      <div class="meteor m1"></div><div class="meteor m2"></div>
+      <div class="glass rv" style="text-align:center">
+        <div style="font-size:11px;letter-spacing:2px;color:#e9d5ff">✦ STARLIGHT INVITATION ✦</div>
+        <h1 class="ti">${P(S.title,'Tham Dự Chụp Hình Kỷ Yếu')}</h1>
+        <div class="sc" style="font-size:22px;color:#fde047">${P(S.invite,'Thân Mời')} • ${P(S.name,'Tên bạn')}</div>
+        <div class="orbit-wrap">
+          <div class="orbit-ring"></div>
+          <div class="orbit-img">${mainPhotoHtml}</div>
+        </div>
+        <div class="star-dt">
+          <div><small style="opacity:.75;display:block">THỨ</small><b>${wd}</b></div>
+          <div style="font-size:32px;font-weight:800;color:#fde047">${dd}.${mo}</div>
+          <div><small style="opacity:.75;display:block">LÚC</small><b>${P(S.time,'Giờ')}</b></div>
+        </div>
+      </div>
+      <div class="glass sc rv" style="text-align:center;font-size:18px">${qText}</div>
+      ${starGal}`;
+  }
+  else if(t.id==='mint'){
+    // MẪU 5: LÁ XANH VÒM & LỊCH THÁNG (BOTANICAL ARCH & MONTHLY CALENDAR)
+    const gridGal=stripItems.length?`<div class="bento rv">${stripItems.map((s,i)=>`<img src="${E(s)}" alt="" class="rv" style="transition-delay:${i*.1}s">`).join('')}</div>`:'';
+    bodyLayout=`
+      <div class="arch-card rv">
+        <span class="leaf-corner lc-l">🌿</span><span class="leaf-corner lc-r">🍃</span>
+        <div class="sc" style="font-size:22px;color:var(--ac)">${P(S.invite,'Thân Mời')}</div>
+        <h1 class="ti">${P(S.title,'Tham Dự Chụp Hình Kỷ Yếu')}</h1>
+        <div class="arch-frame">${mainPhotoHtml}</div>
+        <div class="sc" style="font-size:24px;margin-top:6px">${P(S.name,'Tên bạn')}</div>
+        <div style="font-size:13px;font-weight:600;opacity:.85">${wd} • ${dd}/${mo}/${yr} • Lúc ${P(S.time,'Giờ')}</div>
+      </div>
+      ${buildMiniCalendar(S.date)}
+      <p class="sc rv" style="text-align:center;font-size:18px;margin:14px 8px">${qText}</p>
+      ${gridGal}`;
+  }
+  else if(t.id==='red'){
+    // MẪU 6: ĐỎ ÁO DÀI ĐÔNG DƯƠNG (INDOCHINE HERITAGE & HOA ĐÀO RƠI)
+    const petals=[12,32,58,78,90].map((l,i)=>`<span class="petal" style="left:${l}%;animation-delay:${i*1.1}s">🌸</span>`).join('');
+    const doubled=stripItems.concat(stripItems);
+    const filmGal=doubled.length?`<div class="rv"><div class="film"><div class="film-track">${doubled.map(s=>`<img src="${E(s)}" alt="">`).join('')}</div></div></div>`:'';
+    bodyLayout=`${petals}
+      <div class="indo-frame rv" style="text-align:center">
+        <span class="seal">NIÊN KHÓA KỶ YẾU • ${yr}</span>
+        <h1 class="ti">${P(S.title,'Tham Dự Chụp Hình Kỷ Yếu')}</h1>
+        <div class="sc" style="font-size:22px">${P(S.invite,'Thân Mời')}</div>
+        <div class="medallion">${mainPhotoHtml}</div>
+        <div class="sc" style="font-size:26px;color:var(--ac)">${P(S.name,'Tên bạn')}</div>
+        <div class="plaque">
+          <div style="text-align:right;font-size:12.5px"><b>${wd}</b><br>Tháng ${mo}/${yr}</div>
+          <div class="plaque-d">${dd}</div>
+          <div style="text-align:left;font-size:12.5px"><b>Giờ Hoàng Đạo</b><br>${P(S.time,'Giờ')}</div>
+        </div>
+        <p class="sc" style="font-size:18px;margin:8px 4px 2px">${qText}</p>
+      </div>
+      ${filmGal}`;
+  }
+  else if(t.id==='retro'){
+    // MẪU 7: NHẬT BÁO KỶ YẾU 1998 (VINTAGE FRONT-PAGE NEWSPAPER)
+    const cStrip=stripItems.length?`<div class="contact-strip rv">${stripItems.map((s,i)=>`<div class="c-frame"><img src="${E(s)}" alt=""><span>FILM #0${i+1}A • ${yr}</span></div>`).join('')}</div>`:'';
+    bodyLayout=`
+      <div class="paper rv">
+        <div class="mast">
+          <div class="mast-sub"><span>NHẬT BÁO THANH XUÂN</span><span>SỐ ĐẶC BIỆT • ${dd}/${mo}/${yr}</span></div>
+          <h1 class="ti">${P(S.title,'Tham Dự Chụp Hình Kỷ Yếu')}</h1>
+        </div>
+        <div class="news-cols">
+          <div class="news-pic">
+            ${mainPhotoHtml}
+            <div class="sc" style="text-align:center;font-size:19px;margin-top:4px">${P(S.name,'Tên bạn')}</div>
+          </div>
+          <div>
+            <div style="font-weight:800;font-size:13px;text-transform:uppercase;border-bottom:1px solid #4a3320;padding-bottom:4px">${P(S.invite,'Thân Mời')}</div>
+            <p style="font-size:12.5px;margin:8px 0;line-height:1.45">${qText}</p>
+            <div class="stamp-box">
+              <div style="font-size:10px">ĐÃ CHỐT LỊCH</div>
+              <div style="font-size:26px;line-height:1.05">${dd}/${mo}</div>
+              <div style="font-size:11px">${wd} • ${P(S.time,'Giờ')}</div>
+            </div>
+          </div>
+        </div>
+        ${cStrip}
+      </div>`;
+  }
+  else{
+    // MẪU 8: NEON LOCKET Y2K CYBER (OS WINDOW & 4-CUT PHOTOBOOTH)
+    const booth=stripItems.length?`<div class="booth-strip rv">${stripItems.map(s=>`<img src="${E(s)}" alt="">`).join('')}</div>`:'';
+    bodyLayout=`
+      <div class="os-win rv">
+        <div class="os-bar">
+          <span>⚡ LOCKET_YEARBOOK_${yr}.EXE</span>
+          <div class="os-btns"><span>_</span><span>□</span><span>×</span></div>
+        </div>
+        <div class="os-body">
+          <div style="font-size:12px;color:#19e6ff;font-weight:700">${P(S.invite,'Thân Mời')} // ${P(S.name,'Tên bạn')}</div>
+          <h1 class="ti">${P(S.title,'Tham Dự Chụp Hình Kỷ Yếu')}</h1>
+          <div class="locket-box">
+            ${mainPhotoHtml}
+            <div class="locket-pill">💛 ${P(S.name,'Tên bạn')} • ${dd}/${mo}</div>
+          </div>
+          <div class="led-dt">
+            <div><small style="font-size:10px;display:block;color:#ff4fd8">DAY</small><b>${wd}</b></div>
+            <div><small style="font-size:10px;display:block;color:#ff4fd8">DATE</small><b style="font-size:20px">${dd}.${mo}.${yr}</b></div>
+            <div><small style="font-size:10px;display:block;color:#ff4fd8">TIME</small><b>${P(S.time,'Giờ')}</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="os-win rv" style="padding:10px 12px;text-align:center">
+        <span class="sc" style="font-size:19px;color:#fde047">${qText}</span>
+      </div>
+      ${booth}`;
+  }
+
+  return `${dc}${bodyLayout}${ad}${rs}${cl}${vinylBtn}`;
+}
+
+function render(anim){
+  const t=T.find(x=>x.id===S.tpl)||T[0];
+  const c=$('card');
+  c.setAttribute('style',`--bg:${t.bg};--ink:${t.ink};--ac:${t.ac};--on:${t.on};--sh:${t.sh};--hd:'${t.hd}';--fm:${t.fm};--film:${t.film};--tilt:${t.tilt}deg`);
+  const env=$('envOv');
+  if(env){
+    env.setAttribute('style',`--bg:${t.bg};--ink:${t.ink};--ac:${t.ac};--on:${t.on};--fm:${t.fm}`);
+    $('envName').textContent=S.name||'Thiệp Mời Kỷ Yếu';
+  }
+  c.className=`tpl-${t.id} an-${t.an}${anim?' anim':''}`;
+  c.innerHTML=cardHTML();
+
+  const rv=[...c.querySelectorAll('.rv')];
+  if(t.an==='slide'){
+    rv.forEach((e,i)=>{e.style.setProperty('--x',(i%2?75:-75)+'px');e.style.setProperty('--y','0px')});
+  }
+  if(io)io.disconnect();
+  if(anim){
+    io=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
+    }),{root:$('scroll'),threshold:.08});
+    rv.forEach(e=>io.observe(e));
+  }
+
+  const a=$('au');
+  if(a.dataset.s!==S.music){
+    a.dataset.s=S.music||'';
+    if(S.music&&S.music!=='synth://yearbook'){a.src=S.music}
+    else{a.pause();a.removeAttribute('src')}
+  }
+  vin();
+  parallax();
+
+  $('th').innerHTML=S.strip.map((s,i)=>`<div><img src="${E(s)}" alt=""><button type="button" aria-label="Xóa ảnh" onclick="rmStrip(${i})">×</button></div>`).join('');
+  document.querySelectorAll('.tp').forEach(b=>b.classList.toggle('on',b.dataset.id===S.tpl));
+  updateDirectShareUrl();
+
+  if(ED){
+    try{localStorage.setItem('ky_draft_v3',JSON.stringify(S))}catch(e){}
+  }
+}
+
+function replay(){
+  $('scroll').scrollTop=0;
+  render(true);
+  if(window.innerWidth<=860)tab('p');
+  toast('Đang phát hiệu ứng mẫu: '+((T.find(x=>x.id===S.tpl)||T[0]).n));
+}
+
+function openEnvelopeDemo(){
+  const env=$('envOv');
+  env.classList.remove('hide');
+  if(window.innerWidth<=860)tab('p');
+}
+
+function closeEnvelope(){
+  $('envOv').classList.add('hide');
+  $('scroll').scrollTop=0;
+  render(true);
+  if(S.music){
+    if(S.music==='synth://yearbook')startSynthMusic();
+    else $('au').play().catch(()=>{});
+  }
+}
+
+function parallax(){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const y=$('scroll').scrollTop;
+  document.querySelectorAll('.dc').forEach(e=>e.style.setProperty('--py',(-y*(parseFloat(e.dataset.f)||.06))+'px'));
+}
+let raf=0;
+$('scroll').addEventListener('scroll',()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(parallax)},{passive:true});
+
+// Nhạc nền & Giai điệu Web Audio tổng hợp sẵn
+function startSynthMusic(){
+  try{
+    const Ctx=window.AudioContext||window.webkitAudioContext;
+    if(!Ctx)return;
+    if(!audioCtx)audioCtx=new Ctx();
+    if(audioCtx.state==='suspended')audioCtx.resume();
+    stopSynthMusic();
+    const notes=[523.25,659.25,783.99,1046.5,783.99,659.25,587.33,698.46,880,698.46];
+    let idx=0;
+    const playStep=()=>{
+      if(!synthTimer)return;
+      const osc=audioCtx.createOscillator();
+      const gain=audioCtx.createGain();
+      osc.type='sine';
+      osc.frequency.setValueAtTime(notes[idx%notes.length],audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.001,audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.07,audioCtx.currentTime+0.06);
+      gain.gain.exponentialRampToValueAtTime(0.0001,audioCtx.currentTime+0.55);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime+0.58);
+      idx++;
+    };
+    synthTimer=setInterval(playStep,520);
+    playStep();
+    vin();
+  }catch(e){}
+}
+function stopSynthMusic(){
+  if(synthTimer){clearInterval(synthTimer);synthTimer=null}
+  vin();
+}
+function useSampleMusic(){
+  S.music='synth://yearbook';
+  vals();
+  render();
+  startSynthMusic();
+  toast('Đã bật giai điệu kỷ yếu mẫu (Web Audio).');
+}
+
+function vin(){
+  const p=(!$ ('au').paused)||!!synthTimer;
+  document.querySelectorAll('.vinyl').forEach(v=>v.classList.toggle('on',p));
+}
+$('au').onplay=$('au').onpause=vin;
+
+function toggleMusic(){
+  if(S.music==='synth://yearbook'){
+    synthTimer?stopSynthMusic():startSynthMusic();
+    return;
+  }
+  const a=$('au');
+  if(!S.music){
+    useSampleMusic();
+    return;
+  }
+  a.paused?a.play().catch(()=>toast('Hãy chạm lại để phát nhạc.')):a.pause();
+}
+
+function sendWish(){
+  const n=($('wn')&&$('wn').value||'').trim();
+  const w=($('ww')&&$('ww').value||'').trim();
+  const r=[...document.querySelectorAll('[name=rs]:checked')].map(x=>x.value).join(', ');
+  if(!n)return toast('Hãy nhập tên của bạn trước khi gửi lời chúc nhé!');
+  if(!S.phone)return toast('Chưa có số điện thoại nhận lời chúc.');
+  location.href='sms:'+S.phone.replace(/[^\d+]/g,'')+'?&body='+encodeURIComponent('Từ '+n+': '+w+(r?' ('+r+')':''));
+}
+
+function rm(k){
+  if(k==='music')stopSynthMusic();
+  S[k]='';
+  if(k==='music')$('fMusic').value='';
+  render();
+}
+function rmStrip(i){S.strip.splice(i,1);render()}
+
+// ====== XỬ LÝ ẢNH & ĐỒNG BỘ DỮ LIỆU THIỆP MỜI ======
+
+// Nén ảnh thông minh để vừa đẩy lên API nhanh vừa nhúng trực tiếp vào Link/Cloud JSON
+function shrink(f,max,qual){
+  return new Promise((ok,no)=>{
+    const i=new Image();
+    i.onload=()=>{
+      const s=Math.min(1,max/Math.max(i.width,i.height));
+      const c=document.createElement('canvas');
+      c.width=Math.max(1,Math.round(i.width*s));
+      c.height=Math.max(1,Math.round(i.height*s));
+      c.getContext('2d').drawImage(i,0,0,c.width,c.height);
+      c.toBlob(b=>b?ok(b):no(),'image/jpeg',qual||.82);
+    };
+    i.onerror=no;
+    i.src=URL.createObjectURL(f);
+  });
+}
+
+function readURL(f){
+  return new Promise((ok,no)=>{
+    const r=new FileReader();
+    r.onload=()=>ok(r.result);
+    r.onerror=no;
+    r.readAsDataURL(f);
+  });
+}
+
+// Tạo bản nén gọn của ảnh dataURL để nhúng vừa vào URL chia sẻ trực tiếp
+function compressDataUrl(src,maxDim,qual){
+  return new Promise(resolve=>{
+    if(!src||src.startsWith('http')||src.startsWith('data:image/svg')){
+      resolve(src);return;
+    }
+    const img=new Image();
+    img.onload=()=>{
+      const s=Math.min(1,maxDim/Math.max(img.width,img.height));
+      const c=document.createElement('canvas');
+      c.width=Math.max(1,Math.round(img.width*s));
+      c.height=Math.max(1,Math.round(img.height*s));
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      resolve(c.toDataURL('image/jpeg',qual||0.66));
+    };
+    img.onerror=()=>resolve(src);
+    img.src=src;
+  });
+}
+
+async function upImg(f,isStrip){
+  const maxDim=isStrip?640:900;
+  const b=await shrink(f,maxDim,isStrip?0.78:0.84);
+  if(AS){
+    try{return (await AS.upload(b)).url}catch(e){}
+  }
+  return readURL(b);
+}
+
+async function upMusic(f){
+  if(f.size>20e6){toast('File nhạc quá lớn (tối đa 20MB).');return null}
+  if(AS){try{return (await AS.upload(f)).url}catch(e){}}
+  if(f.size>8e6){toast('Nhạc trên 8MB hãy dán link .mp3 hoặc dùng giai điệu mẫu.');return null}
+  return readURL(f);
+}
+
+// Mã hóa & Giải mã UTF-8 an toàn cho Link trực tiếp
+function encodePayload(obj){
+  try{
+    const json=JSON.stringify(obj);
+    const bytes=new TextEncoder().encode(json);
+    let bin='';
+    for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
+    return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  }catch(e){return ''}
+}
+
+function decodePayload(str){
+  try{
+    const b64=str.replace(/-/g,'+').replace(/_/g,'/');
+    const pad=b64.length%4?b64+'='.repeat(4-(b64.length%4)):b64;
+    const bin=atob(pad);
+    const bytes=new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+    return JSON.parse(new TextDecoder().decode(bytes));
+  }catch(e){return null}
+}
+
+// Tạo đường link trực tiếp tới thiệp mời (chế độ khách mời g=1)
+async function buildShareableState(){
+  const compactPhoto=await compressDataUrl(S.photo,460,0.68);
+  const compactStrip=[];
+  for(const img of S.strip.slice(0,8)){
+    compactStrip.push(await compressDataUrl(img,300,0.64));
+  }
+  return {
+    tpl:S.tpl,
+    name:S.name,
+    title:S.title,
+    invite:S.invite,
+    date:S.date,
+    time:S.time,
+    quote:S.quote,
+    addr:S.addr,
+    phone:S.phone,
+    photo:compactPhoto,
+    strip:compactStrip,
+    music:(S.music&&S.music.startsWith('data:'))?'synth://yearbook':S.music,
+    cloudId:S.cloudId||''
+  };
+}
+
+function getBaseShareUrl(){
+  try{
+    const u=new URL(window.location.href);
+    u.search='';
+    u.hash='';
+    return u.toString();
+  }catch(e){
+    return window.location.href.split('?')[0].split('#')[0];
+  }
+}
+
+async function updateDirectShareUrl(){
+  const inp=$('shareUrl');
+  if(!inp)return;
+  const compact=await buildShareableState();
+  const hashData=encodePayload(compact);
+  const base=getBaseShareUrl();
+  const idParam=S.cloudId?`&id=${encodeURIComponent(S.cloudId)}`:'';
+  const fullUrl=`${base}?g=1${idParam}#d=${hashData}`;
+  inp.value=fullUrl;
+}
+
+// Lưu dữ liệu tự động lên Cloud JSON + Tạo link trực tiếp tới thiệp mời
+const CLOUD_API='https://jsonblob.com/api/jsonBlob';
+async function saveToCloudStore(payload){
+  try{
+    const url=S.cloudId?(CLOUD_API+'/'+encodeURIComponent(S.cloudId)):CLOUD_API;
+    const method=S.cloudId?'PUT':'POST';
+    const res=await fetch(url,{
+      method,
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    if(res.ok||res.status===201){
+      const loc=res.headers.get('Location')||res.headers.get('location')||'';
+      if(loc&&!S.cloudId){
+        const parts=loc.split('/');
+        S.cloudId=parts[parts.length-1]||'';
+      }
+      return true;
+    }
+  }catch(e){}
+  return false;
+}
+
+async function loadFromCloudStore(id){
+  try{
+    const reqUrl=CLOUD_API+'/'+encodeURIComponent(id);
+    const res=await fetch(reqUrl,{
+      headers:{'Accept':'application/json'}
+    });
+    if(res.ok){
+      return await res.json();
+    }
+  }catch(e){}
+  return null;
+}
+
+$('fMain').onchange=async e=>{
+  const f=e.target.files[0];
+  if(!f)return;
+  toast('Đang xử lý & tải ảnh chính lên...');
+  try{
+    S.photo=await upImg(f,false);
+    render();
+    toast('Đã cập nhật ảnh chính!');
+  }catch(x){toast('Không đọc được ảnh này.')}
+};
+
+$('fStrip').onchange=async e=>{
+  const fs=[...e.target.files].slice(0,8-S.strip.length);
+  if(!fs.length)return toast('Thư viện tối đa 8 ảnh.');
+  toast('Đang xử lý & tải ảnh thư viện...');
+  for(const f of fs){
+    try{S.strip.push(await upImg(f,true))}catch(x){}
+  }
+  e.target.value='';
+  render();
+  toast('Đã thêm ảnh vào thư viện!');
+};
+
+$('fMusic').onchange=async e=>{
+  const f=e.target.files[0];
+  if(!f)return;
+  toast('Đang tải nhạc...');
+  stopSynthMusic();
+  const u=await upMusic(f);
+  if(u){
+    S.music=u;
+    render();
+    $('au').play().catch(()=>{});
+    toast('Đã thêm nhạc nền.');
+  }
+};
+
+function vals(){
+  document.querySelectorAll('[data-k]').forEach(el=>el.value=S[el.dataset.k]||'');
+}
+document.querySelectorAll('[data-k]').forEach(el=>el.addEventListener('input',()=>{
+  S[el.dataset.k]=el.value;
+  render();
+}));
+
+$('tpls').innerHTML=T.map(t=>`<button class="tp" type="button" data-id="${t.id}"><i style="background:${t.bg};border-bottom:4px solid ${t.ac}">${t.dec[0]}<em>${t.badge}</em></i><span>${t.n}</span></button>`).join('');
+$('tpls').onclick=e=>{
+  const b=e.target.closest('.tp');
+  if(b){
+    S.tpl=b.dataset.id;
+    render();
+    replay();
+  }
+};
+
+function fillSample(){
+  S=Object.assign({},D,{tpl:S.tpl,photo:S.photo||SAMPLE_MAIN,strip:S.strip.length?S.strip:SAMPLE_STRIP.slice()});
+  vals();
+  render(true);
+  toast('Đã điền thông tin mẫu!');
+}
+
+function loadSamplePhotos(){
+  S.photo=SAMPLE_MAIN;
+  S.strip=SAMPLE_STRIP.slice();
+  render(true);
+  toast('Đã nạp bộ ảnh kỷ yếu mẫu!');
+}
+
+function docHTML(guest){
+  const c=document.documentElement.cloneNode(true);
+  c.querySelector('#card').innerHTML='';
+  c.querySelector('#card').removeAttribute('style');
+  c.querySelector('#th').innerHTML='';
+  const k=c.querySelector('#kdata');
+  k.textContent=JSON.stringify(S).replace(/</g,'\\u003c');
+  if(guest)k.setAttribute('data-g','1');
+  const b=c.querySelector('body');
+  b.setAttribute('data-m','g');
+  b.setAttribute('data-v','e');
+  b.removeAttribute('data-preview');
+  c.querySelector('#toast').className='toast';
+  const a=c.querySelector('#au');
+  a.removeAttribute('src');
+  a.removeAttribute('data-s');
+  return '<!doctype html>\n'+c.outerHTML;
+}
+
+// Khi bấm "Lưu và xuất bản": Đồng bộ kho dữ liệu + Tạo Link dẫn trực tiếp tới thiệp mời
+async function pub(){
+  toast('Đang đồng bộ ảnh & tạo link thiệp mời trực tiếp...');
+  const compact=await buildShareableState();
+  const cloudOk=await saveToCloudStore(compact);
+  await updateDirectShareUrl();
+
+  if(AR){
+    try{
+      await AR.publish(docHTML(false));
+      try{localStorage.removeItem('ky_draft_v3')}catch(e){}
+    }catch(e){}
+  }
+
+  const shareBox=$('shareBox');
+  if(shareBox)shareBox.scrollIntoView({behavior:'smooth',block:'nearest'});
+  copyShareLink(cloudOk
+    ?'🎉 Đã lưu lên Cloud & sao chép Link trực tiếp tới thiệp mời!'
+    :'🎉 Đã tạo & sao chép Link dẫn trực tiếp tới thiệp mời (đã nhúng đủ ảnh)!'
+  );
+}
+
+function copyShareLink(customMsg){
+  const inp=$('shareUrl');
+  if(!inp||!inp.value)return;
+  inp.select();
+  inp.setSelectionRange(0,999999);
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(inp.value).then(()=>{
+      toast(customMsg||'✅ Đã sao chép link thiệp mời trực tiếp! Hãy gửi cho bạn bè.');
+    }).catch(()=>{
+      document.execCommand('copy');
+      toast(customMsg||'✅ Đã sao chép link thiệp mời trực tiếp!');
+    });
+  }else{
+    document.execCommand('copy');
+    toast(customMsg||'✅ Đã sao chép link thiệp mời trực tiếp!');
+  }
+}
+
+// Chuyển sang giao diện Xem Thiệp Trực Tiếp như khách mời
+function openGuestPreview(){
+  document.body.dataset.m='g';
+  document.body.dataset.preview='1';
+  openEnvelopeDemo();
+  render(true);
+  toast('Đang hiển thị giao diện Thiệp Mời Trực Tiếp (như khi bạn bè mở link).');
+}
+
+function exitGuestPreview(){
+  document.body.dataset.m='e';
+  delete document.body.dataset.preview;
+  $('envOv').classList.add('hide');
+  render(true);
+}
+
+// Tải file HTML độc lập (dành cho đưa lên Netlify / GitHub Pages)
+function downloadStandalone(){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([docHTML(true)],{type:'text/html'}));
+  a.download='thiep-moi-ky-yeu-truc-tiep.html';
+  a.click();
+  toast('Đã tải file HTML thiệp mời độc lập (chứa sẵn toàn bộ ảnh & hiệu ứng).');
+}
+
+// Tạo mã QR trực quan cho link thiệp
+function toggleQrBox(){
+  const w=$('qrWrap');
+  w.classList.toggle('open');
+  if(w.classList.contains('open')){
+    const url=($('shareUrl')&&$('shareUrl').value)||window.location.href;
+    let hash=0;
+    for(let i=0;i<url.length;i++)hash=((hash<<5)-hash)+url.charCodeAt(i)|0;
+    const size=21;
+    let rects='';
+    const isFinder=(r,c)=>(r<7&&c<7)||(r<7&&c>=size-7)||(r>=size-7&&c<7);
+    for(let r=0;r<size;r++){
+      for(let c=0;c<size;c++){
+        let on=false;
+        if(isFinder(r,c)){
+          const lr=r>=size-7?r-(size-7):r;
+          const lc=c>=size-7?c-(size-7):c;
+          on=(lr===0||lr===6||lc===0||lc===6||(lr>=2&&lr<=4&&lc>=2&&lc<=4));
+        }else{
+          on=((Math.abs(hash+(r*31+c*17)*(r+c+3)))%7)<3;
+        }
+        if(on)rects+=`<rect x="${c*6+6}" y="${r*6+6}" width="5.5" height="5.5" rx="1" fill="#1e1035"/>`;
+      }
+    }
+    $('qrSvgBox').innerHTML=`<svg width="138" height="138" viewBox="0 0 138 138" style="border:2px solid #7c3aed;border-radius:10px;background:#fff">${rects}</svg>`;
+  }
+}
+
+// Làm lại từ đầu (dùng Modal thay cho confirm() để tương thích mọi trình duyệt)
+function reset(){
+  $('resetModal').classList.add('open');
+}
+function closeResetModal(){
+  $('resetModal').classList.remove('open');
+}
+function confirmReset(){
+  closeResetModal();
+  stopSynthMusic();
+  S=Object.assign({},D,{name:'',title:'',invite:'',date:'',time:'',quote:'',addr:'',phone:'',photo:'',strip:[],music:'',cloudId:''});
+  try{localStorage.removeItem('ky_draft_v3')}catch(e){}
+  vals();
+  render(true);
+  toast('Đã xóa dữ liệu và làm mới từ đầu.');
+}
+
+// Khởi chạy ứng dụng & tự động nhận diện Link Thiệp Mời Trực Tiếp (?g=1, ?id=..., #d=...)
+(async()=>{
+  const params=new URLSearchParams(window.location.search);
+  const hash=window.location.hash||'';
+  const hashMatch=hash.match(/[#&]d=([^&]+)/);
+  const cloudIdParam=params.get('id');
+  const isGuestUrl=params.get('g')==='1'||params.get('mode')==='guest'||!!hashMatch||!!cloudIdParam||$('kdata').dataset.g==='1';
+
+  // 1. Khôi phục dữ liệu từ URL Hash (#d=...) nếu khách mở link chia sẻ
+  if(hashMatch&&hashMatch[1]){
+    const decoded=decodePayload(hashMatch[1]);
+    if(decoded)S=Object.assign({},D,decoded);
+  }
+  // 2. Nếu có Cloud ID (?id=...), tải bản đầy đủ từ Cloud JSON API
+  if(cloudIdParam){
+    const cloudData=await loadFromCloudStore(cloudIdParam);
+    if(cloudData&&cloudData.name!==undefined){
+      S=Object.assign({},D,cloudData,{cloudId:cloudIdParam});
+    }
+  }
+
+  // Nếu là khách mở link thiệp trực tiếp -> Vào thẳng chế độ Khách (ẩn trình chỉnh sửa & hiện phong bì mở thiệp)
+  if(isGuestUrl){
+    ED=false;
+    document.body.dataset.m='g';
+    $('envOv').classList.remove('hide');
+    render(true);
+    return;
+  }
+
+  if(window.claude&&claude.use){
+    const g=n=>claude.use(n).catch(()=>null);
+    const [u,ar,as]=await Promise.all([g('user'),g('artifact'),g('assets')]);
+    AR=ar;AS=as;ED=!!(u&&u.canEdit&&u.canEdit())&&!!ar;
+  }else{
+    ED=true;
+  }
+
+  if(!ED){
+    document.body.dataset.m='g';
+    $('envOv').classList.remove('hide');
+    render(true);
+    return;
+  }
+
+  document.body.dataset.m='e';
+  tab('e');
+  $('hint').textContent='Sau khi chỉnh sửa xong, bấm "Lưu và xuất bản" để tạo Link dẫn trực tiếp tới thiệp mời (bạn bè mở link sẽ thấy đầy đủ ảnh & hiệu ứng).';
+  try{
+    const d=JSON.parse(localStorage.getItem('ky_draft_v3')||'null');
+    if(d&&d.name!==undefined){S=Object.assign({},D,d)}
+  }catch(e){}
+  vals();
+  render(true);
+})();
+</script>
+</body>
+</html>
